@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ExchangeRateForecast:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ExchangeRateForecast_jar</output-path>
+    <root id="archive" name="ExchangeRateForecast.jar">
+      <element id="module-output" name="ExchangeRateForecast" />
+    </root>
+  </artifact>
+</component>

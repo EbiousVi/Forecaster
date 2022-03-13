@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/resources/storage/data-set/csv/AMD_F01_02_2005_T05_03_2022.csv" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/storage/data-set/csv/BGN_F01_02_2005_T05_03_2022.csv" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/storage/data-set/csv/EUR_F01_02_2005_T05_03_2022.csv" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/storage/data-set/csv/TRY_F01_02_2005_T05_03_2022.csv" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/storage/data-set/csv/USD_F01_02_2005_T05_03_2022.csv" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/storage/data-set/csv/newCSV/AMD_F01_02_2005_T05_03_2022.csv" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/storage/data-set/csv/newCSV/BGN_F01_02_2005_T05_03_2022.csv" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/storage/data-set/csv/newCSV/EUR_F01_02_2005_T05_03_2022.csv" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/storage/data-set/csv/newCSV/TRY_F01_02_2005_T05_03_2022.csv" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/storage/data-set/csv/newCSV/USD_F01_02_2005_T05_03_2022.csv" charset="windows-1251" />
+  </component>
+</project>
