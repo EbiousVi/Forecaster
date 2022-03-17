@@ -9,6 +9,8 @@ import com.ebious.forecaster.model.exception.ConvertorException;
 import com.github.sh0nk.matplotlib4j.Plot;
 import com.github.sh0nk.matplotlib4j.PythonConfig;
 import com.github.sh0nk.matplotlib4j.PythonExecutionException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -19,7 +21,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class GraphConvertor implements Convertor {
-
+    private static final Logger logger = LoggerFactory.getLogger(ConvertorFactory.class);
     private static final Path STORAGE = Paths.get("src/main/resources/storage/plt-fig");
     private static final String PYTHON_CONFIG_PATH = "/home/v/env-3.8/bin/python";
     private static final String LINE_FORMAT = "o";
@@ -36,6 +38,7 @@ public class GraphConvertor implements Convertor {
             String drawGraphPath = drawGraph(rates);
             return new Response(drawGraphPath, ContentType.FILE);
         } catch (PythonExecutionException | IOException e) {
+            logger.error(e.getMessage(), e);
             throw new ConvertorException(e.getMessage(), e);
         }
     }

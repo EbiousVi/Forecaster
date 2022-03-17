@@ -140,10 +140,6 @@ public class Starter {
 
         //Может использовать проверяемое исключение для оповещения сложности создания объекта?
         public Starter build() throws StarterBuilderException {
-            if (starter.currencies == null) throw new StarterBuilderException("Currencies is null");
-            if (starter.forecastDate == null) throw new StarterBuilderException("Forecast date is null");
-            if (starter.algorithm == null) throw new StarterBuilderException("Algorithm is null");
-            if (starter.output == null) throw new StarterBuilderException("Output is null");
             return starter;
         }
     }

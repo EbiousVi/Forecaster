@@ -5,6 +5,8 @@ import com.ebious.forecaster.controller.gateway.Request;
 import com.ebious.forecaster.controller.gateway.Response;
 import com.ebious.forecaster.view.telegram.command.service.HelpCommand;
 import com.ebious.forecaster.view.telegram.command.service.StartCommand;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -15,11 +17,11 @@ import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 
 public class Bot extends TelegramLongPollingCommandBot {
 
+    private static final Logger logger = LoggerFactory.getLogger(Bot.class);
     private static final Map<String, String> getenv = System.getenv();
     private final String BOT_USERNAME = getenv.get("BOT_USERNAME");
     private final String BOT_TOKEN = getenv.get("BOT_TOKEN");
@@ -28,6 +30,7 @@ public class Bot extends TelegramLongPollingCommandBot {
     public Bot() {
         register(new StartCommand("start", "start"));
         register(new HelpCommand("help", "help"));
+        logger.info("init Bot");
     }
 
     @Override
@@ -69,7 +72,7 @@ public class Bot extends TelegramLongPollingCommandBot {
         try {
             execute(answer);
         } catch (TelegramApiException e) {
-            e.printStackTrace();
+            logger.error("Telegram API exception", e);
         }
     }
 
@@ -82,7 +85,7 @@ public class Bot extends TelegramLongPollingCommandBot {
         try {
             execute(answer);
         } catch (TelegramApiException e) {
-            e.printStackTrace();
+            logger.error("Telegram API exception", e);
         }
     }
 

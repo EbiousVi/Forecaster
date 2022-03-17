@@ -22,9 +22,9 @@ public class ConvertorFactory {
         if (factory.containsKey(output)) {
             return factory.get(output);
         } else {
-            String errMsg = String.format("Unsupported output = %s for Forecast!", output);
-            logger.error(errMsg);
-            throw new UnsupportedOutputException(errMsg);
+            String message = String.format("Unsupported output = %s for Forecast!", output);
+            logger.error(message);
+            throw new UnsupportedOutputException(message);
         }
     }
 }

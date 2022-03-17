@@ -2,10 +2,11 @@ package com.ebious.forecaster.model.cli.command.rate.parser;
 
 import com.ebious.forecaster.model.cli.CommandLineParser;
 import com.ebious.forecaster.model.cli.domain.Option;
-import com.ebious.forecaster.model.domain.entity.Starter;
 import com.ebious.forecaster.model.cli.exception.OptionMapperException;
+import com.ebious.forecaster.model.domain.entity.Starter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.ebious.forecaster.model.cli.domain.Info.SPLIT_BY_OPTION;
 
@@ -32,13 +33,19 @@ public class StarterParser implements CommandLineParser<Starter> {
 
     private List<Option> splitByOptions(String body) {
         String[] words = body.split(COMMAND_SEPARATOR);
-        if (words.length % 2 != 0) throw new OptionMapperException(SPLIT_BY_OPTION);
+        checkCommandStructure(words);
         List<Option> options = new ArrayList<>();
         for (int i = 0; i < words.length; i += 2) {
             options.add(new Option(words[i], words[i + 1]));
         }
         fillNonRequiredOptions(options);
         return options;
+    }
+
+    private void checkCommandStructure(String[] words) {
+        if (words.length % 2 != 0) {
+            throw new OptionMapperException(SPLIT_BY_OPTION);
+        }
     }
 
     private void fillNonRequiredOptions(List<Option> options) {

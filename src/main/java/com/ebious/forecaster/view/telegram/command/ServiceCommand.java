@@ -1,12 +1,14 @@
 package com.ebious.forecaster.view.telegram.command.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.extensions.bots.commandbot.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 abstract class ServiceCommand extends BotCommand {
-
+    private static final Logger logger = LoggerFactory.getLogger(ServiceCommand.class);
     ServiceCommand(String identifier, String description) {
         super(identifier, description);
     }
@@ -19,7 +21,7 @@ abstract class ServiceCommand extends BotCommand {
         try {
             absSender.execute(message);
         } catch (TelegramApiException e) {
-            e.printStackTrace();
+            logger.error("Telegram API exception", e);
         }
     }
 }

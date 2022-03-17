@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-public class CsvLineParser {
+public class CsvDataSetLineParser {
 
     private static final String CSV_LINE_SEPARATOR = ";";
     private static final String LOCAL_DOUBLE_SEPARATOR = ",";

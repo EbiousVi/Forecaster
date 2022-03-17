@@ -2,7 +2,7 @@ package com.ebious.forecaster.model.cli.command.rate.mapper;
 
 import com.ebious.forecaster.model.cli.OptionMapper;
 import com.ebious.forecaster.model.cli.domain.Option;
-import com.ebious.forecaster.model.cli.exception.OptionMapperException;
+import com.ebious.forecaster.model.exception.OptionMapperException;
 import com.ebious.forecaster.model.domain.enums.Algorithm;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

@@ -15,6 +15,7 @@ public class FrontController {
             Controller controller = requestMapping.process(request);
             return controller.perform(request);
         } catch (Exception e) {
+            logger.warn("FrontController intercept exception!", e);
             return new Response(e.getMessage(), ContentType.TEXT);
         }
     }

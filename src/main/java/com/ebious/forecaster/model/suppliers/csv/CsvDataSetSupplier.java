@@ -23,7 +23,7 @@ public class CsvDataSetSupplier implements DataSetSupplier {
     private static final Logger logger = LoggerFactory.getLogger(DataSetSupplier.class);
     private static final Path CSV_STORAGE = Paths.get("src/main/resources/storage/data-set/csv");
     private static final int TITLE_ROW_INDEX = 1;
-    private final CsvLineParser csvLineParser = new CsvLineParser();
+    private final CsvDataSetLineParser csvDataSetLineParser = new CsvDataSetLineParser();
 
     public Map<Currency, List<Rate>> getDataSet(List<Currency> currencies) {
         Map<Currency, List<Rate>> dataSets = new EnumMap<>(Currency.class);
@@ -38,7 +38,7 @@ public class CsvDataSetSupplier implements DataSetSupplier {
             return new BufferedReader(new FileReader(path.toFile()))
                     .lines()
                     .skip(TITLE_ROW_INDEX)
-                    .map(csvLineParser::parseLine)
+                    .map(csvDataSetLineParser::parseLine)
                     .collect(Collectors.toList());
         } catch (IOException e) {
             String message = String.format("File not found = %s", path);

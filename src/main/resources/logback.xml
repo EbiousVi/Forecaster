@@ -13,15 +13,16 @@
             <!-- daily rollover -->
             <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
             <!-- keep 1 days' worth of history -->
-            <maxHistory>5</maxHistory>
+            <maxHistory>7</maxHistory>
         </rollingPolicy>
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35}.%M - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <root level="info" additivity="false">
+    <root level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </root>
+
 </configuration>
