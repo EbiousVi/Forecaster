@@ -1,6 +1,7 @@
 package com.ebious.forecaster.controller.gateway;
 
 public class Response {
+
     private final String body;
     private final ContentType contentType;
 

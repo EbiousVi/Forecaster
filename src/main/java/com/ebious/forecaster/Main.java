@@ -1,6 +1,6 @@
 package com.ebious.forecaster;
 
-import com.ebious.forecaster.frontend.telegram.BotContext;
+import com.ebious.forecaster.view.telegram.context.BotContext;
 
 public class Main {
 

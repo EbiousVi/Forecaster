@@ -1,8 +1,9 @@
 package com.ebious.forecaster.controller.gateway;
 
 public class Request {
-    private String body;
-    //command здесь
+
+    private final String body;
+
     public Request(String body) {
         this.body = body;
     }

@@ -1,23 +1,18 @@
 package com.ebious.forecaster.controller.gateway;
 
 import com.ebious.forecaster.controller.controller.Controller;
-import com.ebious.forecaster.controller.handler.RequestHandler;
+import com.ebious.forecaster.controller.mapping.RequestMapping;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FrontController {
 
-    private static FrontController frontController;
-    private final RequestHandler requestHandler = new RequestHandler();
+    private static final Logger logger = LoggerFactory.getLogger(FrontController.class);
+    private final RequestMapping requestMapping = new RequestMapping();
 
-    public static FrontController getFrontController() {
-        if (frontController == null) {
-            frontController = new FrontController();
-        }
-        return frontController;
-    }
-
-    public Response run(Request request) {
+    public Response accept(Request request) {
         try {
-            Controller controller = requestHandler.process(request);
+            Controller controller = requestMapping.process(request);
             return controller.perform(request);
         } catch (Exception e) {
             return new Response(e.getMessage(), ContentType.TEXT);
