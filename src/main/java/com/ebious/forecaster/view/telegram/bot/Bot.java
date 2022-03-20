@@ -3,8 +3,8 @@ package com.ebious.forecaster.view.telegram.bot;
 import com.ebious.forecaster.controller.gateway.FrontController;
 import com.ebious.forecaster.controller.gateway.Request;
 import com.ebious.forecaster.controller.gateway.Response;
-import com.ebious.forecaster.view.telegram.command.service.HelpCommand;
-import com.ebious.forecaster.view.telegram.command.service.StartCommand;
+import com.ebious.forecaster.view.telegram.command.HelpCommand;
+import com.ebious.forecaster.view.telegram.command.StartCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
@@ -22,9 +22,9 @@ import java.util.Map;
 public class Bot extends TelegramLongPollingCommandBot {
 
     private static final Logger logger = LoggerFactory.getLogger(Bot.class);
-    private static final Map<String, String> getenv = System.getenv();
-    private final String BOT_USERNAME = getenv.get("BOT_USERNAME");
-    private final String BOT_TOKEN = getenv.get("BOT_TOKEN");
+    private static final Map<String, String> env = System.getenv();
+    private final String BOT_USERNAME = env.get("BOT_USERNAME");
+    private final String BOT_TOKEN = env.get("BOT_TOKEN");
     private final FrontController frontController = new FrontController();
 
     public Bot() {
@@ -66,26 +66,26 @@ public class Bot extends TelegramLongPollingCommandBot {
     }
 
     private void sendText(Long chatId, String userName, String text) {
-        SendMessage answer = new SendMessage();
-        answer.setText(text);
-        answer.setChatId(chatId.toString());
+        SendMessage message = new SendMessage();
+        message.setText(text);
+        message.setChatId(chatId.toString());
         try {
-            execute(answer);
+            execute(message);
         } catch (TelegramApiException e) {
-            logger.error("Telegram API exception", e);
+            logger.error("Telegram API execute exception", e);
         }
     }
 
     private void sendFile(Long chatId, String userName, String path) {
-        SendDocument answer = new SendDocument();
+        SendDocument sendDocument = new SendDocument();
         InputFile inputFile = new InputFile();
         inputFile.setMedia(new File(path));
-        answer.setDocument(inputFile);
-        answer.setChatId(chatId.toString());
+        sendDocument.setDocument(inputFile);
+        sendDocument.setChatId(chatId.toString());
         try {
-            execute(answer);
+            execute(sendDocument);
         } catch (TelegramApiException e) {
-            logger.error("Telegram API exception", e);
+            logger.error("Telegram API execute exception", e);
         }
     }
 

@@ -4,7 +4,7 @@ import com.ebious.forecaster.model.cli.OptionMapper;
 import com.ebious.forecaster.model.cli.domain.Option;
 import com.ebious.forecaster.model.domain.entity.ForecastDate;
 import com.ebious.forecaster.model.domain.enums.Period;
-import com.ebious.forecaster.model.cli.exception.OptionMapperException;
+import com.ebious.forecaster.model.exception.OptionMapperException;
 import com.ebious.forecaster.model.utils.DateUtils;
 
 import java.time.LocalDate;
@@ -13,10 +13,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DateOptionMapper extends OptionMapper<ForecastDate> {
-    private final List<String> OPTION_NAMES = Arrays.asList("-date", "-period");
-    private final String DESCRIPTION = "use -date or -period option to select forecast date\n" +
-            "Excepted argument value to -period option: " + Arrays.toString(Period.values()).toLowerCase() + "\n" +
-            "Excepted argument value to -date option: date like 22.03.2022 format";
+
+    private static final String DATE_OPTION_NAME = "-date";
+    private static final String PERIOD_OPTION_NAME = "-period";
+    private static final List<String> OPTION_NAMES = Arrays.asList(DATE_OPTION_NAME, PERIOD_OPTION_NAME);
+    private static final String DESCRIPTION = "use -date or -period option to select date or period\n" +
+            "Expected option name: -date" + System.lineSeparator() +
+            "Excepted argument value: date at format like 22.03.2022" + System.lineSeparator() +
+            "Expected option name: -period" + System.lineSeparator() +
+            "Excepted argument value: " + Arrays.toString(Period.values()).toLowerCase();
 
     @Override
     protected ForecastDate mapToObject(Option option) {
@@ -24,7 +29,7 @@ public class DateOptionMapper extends OptionMapper<ForecastDate> {
         if (isPeriodOption(option)) {
             return new ForecastDate(LocalDate.now(), Period.getPeriod(value));
         } else if (isDateOption(option)) {
-            return new ForecastDate(LocalDate.parse(value, DateUtils.PARSE_FORMATTER), Period.NONE);
+            return new ForecastDate(LocalDate.parse(value, DateUtils.PARSE_FORMATTER), Period.DATE);
         }
         throw new OptionMapperException("Date is required option!");
     }
@@ -42,8 +47,7 @@ public class DateOptionMapper extends OptionMapper<ForecastDate> {
     @Override
     protected boolean validateOptionValue(Option option) {
         if (isPeriodOption(option)) return true;
-        if (isDateOption(option)) return true;
-        return false;
+        return isDateOption(option);
     }
 
     @Override
@@ -62,10 +66,10 @@ public class DateOptionMapper extends OptionMapper<ForecastDate> {
     }
 
     private boolean isDateOption(Option option) {
-        return option.getName().equals("-date") && isValidDate(option.getValue());
+        return option.getName().equals(DATE_OPTION_NAME) && isValidDate(option.getValue());
     }
 
     private boolean isPeriodOption(Option option) {
-        return option.getName().equals("-period") && Period.contains(option.getValue());
+        return option.getName().equals(PERIOD_OPTION_NAME) && Period.contains(option.getValue());
     }
 }

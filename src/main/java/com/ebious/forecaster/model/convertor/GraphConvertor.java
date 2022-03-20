@@ -21,9 +21,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class GraphConvertor implements Convertor {
-    private static final Logger logger = LoggerFactory.getLogger(ConvertorFactory.class);
-    private static final Path STORAGE = Paths.get("src/main/resources/storage/plt-fig");
-    private static final String PYTHON_CONFIG_PATH = "/home/v/env-3.8/bin/python";
+
+    private static final Logger logger = LoggerFactory.getLogger(GraphConvertor.class);
+    private static final Path STORAGE = Paths.get("src", "main", "resources", "storage", "plt-fig");
+    private static final String PYTHON_BIN_PATH = System.getenv("PYTHON_BIN_PATH");
     private static final String LINE_FORMAT = "o";
     private static final String LINE_STYLE = "--";
     private static final String PLOT_TITLE = "Exchange rates";
@@ -43,8 +44,8 @@ public class GraphConvertor implements Convertor {
         }
     }
 
-    public String drawGraph(Map<Currency, List<Rate>> rates) throws PythonExecutionException, IOException {
-        Plot plt = Plot.create(PythonConfig.pythonBinPathConfig(PYTHON_CONFIG_PATH));
+    private String drawGraph(Map<Currency, List<Rate>> rates) throws PythonExecutionException, IOException {
+        Plot plt = Plot.create(PythonConfig.pythonBinPathConfig(PYTHON_BIN_PATH));
         plt.title(PLOT_TITLE);
         plt.xlabel(X_LABEL);
         plt.ylabel(Y_LABEL);

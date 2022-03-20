@@ -31,12 +31,4 @@ public enum Algorithm {
         }
         return false;
     }
-
-    public static List<String> getStringValues() {
-        List<String> values = new ArrayList<>();
-        for (Algorithm value : Algorithm.values()) {
-            values.add(value.name());
-        }
-        return values;
-    }
 }

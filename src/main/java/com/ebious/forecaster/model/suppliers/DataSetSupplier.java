@@ -9,5 +9,5 @@ import java.util.Map;
 
 public interface DataSetSupplier {
 
-    Map<Currency, List<Rate>> getDataSet(List<Currency> currencies);
+    Map<Currency, List<Rate>> deliverDataSet(List<Currency> currencies);
 }

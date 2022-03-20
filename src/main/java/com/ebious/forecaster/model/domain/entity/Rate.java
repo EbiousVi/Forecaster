@@ -1,6 +1,7 @@
 package com.ebious.forecaster.model.domain.entity;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Rate {
 
@@ -35,8 +36,8 @@ public class Rate {
 
         Rate rate = (Rate) o;
 
-        if (date != null ? !date.equals(rate.date) : rate.date != null) return false;
-        return curs != null ? curs.equals(rate.curs) : rate.curs == null;
+        if (!Objects.equals(date, rate.date)) return false;
+        return Objects.equals(curs, rate.curs);
     }
 
     @Override

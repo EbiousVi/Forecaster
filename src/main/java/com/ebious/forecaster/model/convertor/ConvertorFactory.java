@@ -19,12 +19,12 @@ public class ConvertorFactory {
     }
 
     public Convertor getConvertor(Output output) {
-        if (factory.containsKey(output)) {
-            return factory.get(output);
-        } else {
+        if (!factory.containsKey(output)) {
             String message = String.format("Unsupported output = %s for Forecast!", output);
             logger.error(message);
             throw new UnsupportedOutputException(message);
+
         }
+        return factory.get(output);
     }
 }

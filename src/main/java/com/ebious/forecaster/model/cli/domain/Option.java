@@ -1,5 +1,7 @@
 package com.ebious.forecaster.model.cli.domain;
 
+import java.util.Objects;
+
 public class Option {
     private final String name;
     private final String value;
@@ -23,10 +25,9 @@ public class Option {
 
     @Override
     public String toString() {
-        return "Option{" +
+        return "Option: " +
                 "name='" + name + '\'' +
-                ", value='" + value + '\'' +
-                '}';
+                ", value='" + value + '\'';
     }
 
     @Override
@@ -36,8 +37,8 @@ public class Option {
 
         Option option = (Option) o;
 
-        if (name != null ? !name.equals(option.name) : option.name != null) return false;
-        return value != null ? value.equals(option.value) : option.value == null;
+        if (!Objects.equals(name, option.name)) return false;
+        return Objects.equals(value, option.value);
     }
 
     @Override

@@ -7,10 +7,11 @@ import com.ebious.forecaster.model.exception.OptionMapperException;
 
 import java.util.Arrays;
 
-public class AlgoOptionMapper extends OptionMapper<Algorithm> {
-    private final static String OPTION_NAME = "-alg";
-    private static final String DESCRIPTION = "use -alg option to choose forecast algorithm type\n" +
-            "Expected option value: " + OPTION_NAME + "\n" +
+public class AlgorithmOptionMapper extends OptionMapper<Algorithm> {
+
+    private static final String OPTION_NAME = "-alg";
+    private static final String DESCRIPTION = "use -alg option to choose forecast algorithm\n" +
+            "Expected option name: " + OPTION_NAME + "\n" +
             "Expected argument value: " + Arrays.toString(Algorithm.values()).toLowerCase();
 
     @Override

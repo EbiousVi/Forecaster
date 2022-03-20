@@ -3,7 +3,7 @@ package com.ebious.forecaster.model.cli.command.rate.mapper;
 import com.ebious.forecaster.model.cli.OptionMapper;
 import com.ebious.forecaster.model.cli.domain.Option;
 import com.ebious.forecaster.model.domain.enums.Currency;
-import com.ebious.forecaster.model.cli.exception.OptionMapperException;
+import com.ebious.forecaster.model.exception.OptionMapperException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,10 +14,11 @@ public class CurrencyOptionMapper extends OptionMapper<List<Currency>> {
 
     private static final String OPTION_NAME = "rate";
     private static final int SINGLE_CURRENCY_LENGTH = 3;
-    private static final int LIMIT_CURRENCY_LENGTH = 20;
+    private static final int MULTI_CURRENCIES_LENGTH = 20;
     private static final String CURRENCIES_SEPARATOR = ",";
-    private final String DESCRIPTION = "rate uses to forecast exchange rate\n" +
-            "Excepted argument value: " + Arrays.toString(Currency.values()) + "\n" +
+    private static final String DESCRIPTION = "rate uses to forecast exchange rates\n" +
+            "Expected option name: " + OPTION_NAME + System.lineSeparator() +
+            "Excepted argument value: " + Arrays.toString(Currency.values()) + System.lineSeparator() +
             "or list of values separated by commas, like: USD,EUR,TRY\n" +
             "The system supports only 5 exchange rates in the argument";
 
@@ -54,8 +55,8 @@ public class CurrencyOptionMapper extends OptionMapper<List<Currency>> {
             return Currency.contains(value);
         }
         if (isMultiCurrency(value)) {
-            String[] splittedArgs = option.getValue().split(",");
-            for (String arg : splittedArgs) {
+            String[] split = option.getValue().split(CURRENCIES_SEPARATOR);
+            for (String arg : split) {
                 if (!Currency.contains(arg)) {
                     return false;
                 }
@@ -72,7 +73,7 @@ public class CurrencyOptionMapper extends OptionMapper<List<Currency>> {
     }
 
     private boolean isMultiCurrency(String value) {
-        return value.length() > SINGLE_CURRENCY_LENGTH && value.length() < LIMIT_CURRENCY_LENGTH;
+        return value.length() > SINGLE_CURRENCY_LENGTH && value.length() < MULTI_CURRENCIES_LENGTH;
     }
 
     private boolean isSingleCurrency(String value) {

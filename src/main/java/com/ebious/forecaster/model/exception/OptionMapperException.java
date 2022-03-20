@@ -1,4 +1,4 @@
-package com.ebious.forecaster.model.cli.exception;
+package com.ebious.forecaster.model.exception;
 
 public class OptionMapperException extends RuntimeException {
     public OptionMapperException(String message) {

@@ -1,11 +1,12 @@
 package com.ebious.forecaster;
 
-import com.ebious.forecaster.view.telegram.context.BotContext;
+import com.ebious.forecaster.view.console.ConsoleContext;
+
 
 public class Main {
 
     public static void main(String[] args) {
-        BotContext botContext = new BotContext();
-        botContext.run();
+        ConsoleContext consoleContext = new ConsoleContext();
+        consoleContext.init();
     }
 }

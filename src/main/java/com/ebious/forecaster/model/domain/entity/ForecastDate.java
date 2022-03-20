@@ -3,9 +3,11 @@ package com.ebious.forecaster.model.domain.entity;
 import com.ebious.forecaster.model.domain.enums.Period;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 public class ForecastDate {
+
     private final LocalDate localDate;
     private final Period period;
 
@@ -37,7 +39,7 @@ public class ForecastDate {
 
         ForecastDate that = (ForecastDate) o;
 
-        if (localDate != null ? !localDate.equals(that.localDate) : that.localDate != null) return false;
+        if (!Objects.equals(localDate, that.localDate)) return false;
         return period == that.period;
     }
 

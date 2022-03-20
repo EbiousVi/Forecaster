@@ -2,12 +2,10 @@ package com.ebious.forecaster.model.domain.enums;
 
 import com.ebious.forecaster.model.exception.UnsupportedPeriodException;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public enum Period {
-    NONE(0L),
+    DATE(0L),
     TOMORROW(1L),
     WEEK(7L),
     MONTH(30L);

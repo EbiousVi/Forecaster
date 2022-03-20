@@ -6,9 +6,10 @@ import com.ebious.forecaster.model.cli.command.rate.mapper.*;
 import com.ebious.forecaster.model.domain.enums.Algorithm;
 import com.ebious.forecaster.model.domain.enums.Currency;
 import com.ebious.forecaster.model.domain.enums.Output;
-import com.ebious.forecaster.model.exception.StarterBuilderException;
+import com.ebious.forecaster.model.exception.StarterBuildException;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Starter {
 
@@ -53,8 +54,8 @@ public class Starter {
 
         Starter starter = (Starter) o;
 
-        if (currencies != null ? !currencies.equals(starter.currencies) : starter.currencies != null) return false;
-        if (forecastDate != null ? !forecastDate.equals(starter.forecastDate) : starter.forecastDate != null)
+        if (!Objects.equals(currencies, starter.currencies)) return false;
+        if (!Objects.equals(forecastDate, starter.forecastDate))
             return false;
         if (algorithm != starter.algorithm) return false;
         return output == starter.output;
@@ -73,7 +74,7 @@ public class Starter {
         private final Starter starter;
         private final OptionMapper<List<Currency>> currencyMapping = new CurrencyOptionMapper();
         private final OptionMapper<ForecastDate> forecastDateMapping = new DateOptionMapper();
-        private final OptionMapper<Algorithm> algoMapping = new AlgoOptionMapper();
+        private final OptionMapper<Algorithm> algoMapping = new AlgorithmOptionMapper();
         private final OptionMapper<Output> outputMapping = new OutputOptionMapper();
 
         public OptionBuilder() {
@@ -100,46 +101,15 @@ public class Starter {
             return this;
         }
 
-        //Может использовать проверяемое исключение для оповещения сложности создания объекта?
-        public Starter build() throws StarterBuilderException {
-            if (starter.currencies == null) throw new StarterBuilderException("Currencies is null");
-            if (starter.forecastDate == null) throw new StarterBuilderException("Forecast date is null");
-            if (starter.algorithm == null) throw new StarterBuilderException("Algorithm is null");
-            if (starter.output == null) throw new StarterBuilderException("Output is null");
-            System.out.println(starter);
-            return starter;
-        }
-    }
-
-    public static class SimpleBuilder {
-        private final Starter starter;
-
-        public SimpleBuilder() {
-            this.starter = new Starter();
-        }
-
-        public SimpleBuilder currencies(List<Currency> currencies) {
-            starter.currencies = currencies;
-            return this;
-        }
-
-        public SimpleBuilder forecastDate(ForecastDate forecastDate) {
-            starter.forecastDate = forecastDate;
-            return this;
-        }
-
-        public SimpleBuilder algorithm(Algorithm algorithm) {
-            starter.algorithm = algorithm;
-            return this;
-        }
-
-        public SimpleBuilder output(Output output) {
-            starter.output = output;
-            return this;
-        }
-
-        //Может использовать проверяемое исключение для оповещения сложности создания объекта?
-        public Starter build() throws StarterBuilderException {
+        public Starter build() {
+            if (starter.currencies == null)
+                throw new StarterBuildException("Build failed, object must have all fields. Currencies is missing");
+            if (starter.forecastDate == null)
+                throw new StarterBuildException("Build failed, object must have all fields. Forecast date  is missing");
+            if (starter.algorithm == null)
+                throw new StarterBuildException("Build failed, object must have all fields. Algorithm is missing");
+            if (starter.output == null)
+                throw new StarterBuildException("Build failed, object must have all fields. Output is missing");
             return starter;
         }
     }

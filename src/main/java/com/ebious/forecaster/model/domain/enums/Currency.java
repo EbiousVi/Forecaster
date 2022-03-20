@@ -26,12 +26,4 @@ public enum Currency {
         }
         return false;
     }
-
-    public static List<String> getStringValues() {
-        List<String> values = new ArrayList<>();
-        for (Currency value : Currency.values()) {
-            values.add(value.name());
-        }
-        return values;
-    }
 }

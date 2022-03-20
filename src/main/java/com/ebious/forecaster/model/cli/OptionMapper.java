@@ -4,9 +4,6 @@ import com.ebious.forecaster.model.cli.domain.Option;
 
 public abstract class OptionMapper<T> {
 
-    /**
-     * template method
-     */
     public T map(Option option) {
         boolean isValid = true;
         if (!isRequired(option)) return mapToObject(option);

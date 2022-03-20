@@ -20,12 +20,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CsvDataSetSupplier implements DataSetSupplier {
+
     private static final Logger logger = LoggerFactory.getLogger(DataSetSupplier.class);
-    private static final Path CSV_STORAGE = Paths.get("src/main/resources/storage/data-set/csv");
+    private static final Path CSV_STORAGE = Paths.get("src", "main", "resources", "storage", "data-set", "csv");
     private static final int TITLE_ROW_INDEX = 1;
     private final CsvDataSetLineParser csvDataSetLineParser = new CsvDataSetLineParser();
 
-    public Map<Currency, List<Rate>> getDataSet(List<Currency> currencies) {
+    public Map<Currency, List<Rate>> deliverDataSet(List<Currency> currencies) {
         Map<Currency, List<Rate>> dataSets = new EnumMap<>(Currency.class);
         for (Currency currency : currencies) {
             dataSets.put(currency, readDataSetFromCsv(findCsvByCurrency(currency)));
@@ -57,7 +58,9 @@ public class CsvDataSetSupplier implements DataSetSupplier {
                     .findFirst()
                     .orElseThrow(() -> new CsvParserException("CSV not found by currency = " + currency));
         } catch (IOException e) {
-            throw new CsvParserException("Storage unavailable now!", e);
+            String message = "Storage unavailable now!";
+            logger.error(message, e);
+            throw new CsvParserException(message, e);
         }
     }
 

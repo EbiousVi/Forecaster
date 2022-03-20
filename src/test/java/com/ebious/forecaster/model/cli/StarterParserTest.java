@@ -8,31 +8,54 @@ import com.ebious.forecaster.model.domain.enums.Currency;
 import com.ebious.forecaster.model.domain.enums.Output;
 import com.ebious.forecaster.model.domain.enums.Period;
 import com.ebious.forecaster.model.utils.DateUtils;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.List;
 
-class StarterStarterParserTest {
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-    StarterParser starterStarterParser = new StarterParser();
-    List<Currency> currencies = Arrays.asList(Currency.USD);
-    ForecastDate date = new ForecastDate(LocalDate.parse("30.03.2022", DateUtils.PARSE_FORMATTER), Period.DATE);
-    ForecastDate period = new ForecastDate(LocalDate.now(), Period.WEEK);
-    Algorithm algorithm = Algorithm.MOON;
-    Output output = Output.DEFAULT;
-/*    Starter expected = new Starter.PlayOldBuilder()
-            .currencies(currencies)
-            .forecastDate(date)
-            .algorithm(algorithm)
-            .output(output)
-            .build();*/
+
+class StarterParserTest {
+
+    final String currenciesField = "currencies";
+    final String forecastDateField = "forecastDate";
+    final String algorithmField = "algorithm";
+    final String outputField = "output";
+    final StarterParser starterStarterParser = new StarterParser();
+    final ForecastDate expectedDate = new ForecastDate(LocalDate.parse("26.03.2022", DateUtils.PARSE_FORMATTER), Period.DATE);
+    final ForecastDate expectedPeriod = new ForecastDate(LocalDate.now(), Period.WEEK);
 
     @Test
-    void parseStarterCase1() {
-        Starter parse = starterStarterParser.parse("rate USD -date 30.03.2022 -alg asd");
-        System.out.println(parse);
+    void happyCaseFirstThreeRequiredOption_USD_DATE_MOON() {
+        String commandLine = "rate USD -date 26.03.2022 -alg moon";
+        Starter parse = starterStarterParser.parse(commandLine);
+        assertThat(parse)
+                .hasFieldOrPropertyWithValue(currenciesField, Arrays.asList(Currency.USD))
+                .hasFieldOrPropertyWithValue(forecastDateField, expectedDate)
+                .hasFieldOrPropertyWithValue(algorithmField, Algorithm.MOON)
+                .hasFieldOrPropertyWithValue(outputField, Output.DEFAULT);
+    }
+
+    @Test
+    void happyCaseFirstAllOptions_EUR_DATE_LINEAR_LIST() {
+        String commandLine = "rate EUR -date 26.03.2022 -alg linear -output list";
+        Starter parse = starterStarterParser.parse(commandLine);
+        assertThat(parse)
+                .hasFieldOrPropertyWithValue(currenciesField, Arrays.asList(Currency.EUR))
+                .hasFieldOrPropertyWithValue(forecastDateField, expectedDate)
+                .hasFieldOrPropertyWithValue(algorithmField, Algorithm.LINEAR)
+                .hasFieldOrPropertyWithValue(outputField, Output.LIST);
+    }
+
+    @Test
+    void happyCaseFirstAllOptions_EUR_USD_WEEK_AVG_GRAPH() {
+        String commandLine = "rate EUR,USD -period week -alg avg -output graph";
+        Starter parse = starterStarterParser.parse(commandLine);
+        assertThat(parse)
+                .hasFieldOrPropertyWithValue(currenciesField, Arrays.asList(Currency.EUR, Currency.USD))
+                .hasFieldOrPropertyWithValue(forecastDateField, expectedPeriod)
+                .hasFieldOrPropertyWithValue(algorithmField, Algorithm.AVG)
+                .hasFieldOrPropertyWithValue(outputField, Output.GRAPH);
     }
 }

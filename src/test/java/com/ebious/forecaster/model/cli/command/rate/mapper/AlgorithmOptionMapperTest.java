@@ -10,54 +10,48 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 
-class AlgoOptionMapperTest {
+class AlgorithmOptionMapperTest {
 
-    OptionMapper<Algorithm> optionMapper = new AlgoOptionMapper();
+    final OptionMapper<Algorithm> optionMapper = new AlgorithmOptionMapper();
+    final String validOptionName = "-alg";
+    final String validOptionValue = "linear";
+    final String invalidOptionName = "invalid";
+    final String invalidOptionValue = "invalid";
 
     @Test
     void happyCase() {
-        Option option = new Option("-alg", "linear");
+        Option option = new Option(validOptionName, validOptionValue);
         Algorithm algo = optionMapper.map(option);
         Assertions.assertThat(algo).isEqualTo(Algorithm.LINEAR);
     }
 
     @Test
     void badCaseInvalidOptionName() {
-        Option option = new Option("-asd", "linear");
-        assertThatThrownBy(() -> {
-            optionMapper.map(option);
-        }).isInstanceOf(OptionMapperException.class);
+        Option option = new Option(invalidOptionName, validOptionValue);
+        assertThatThrownBy(() -> optionMapper.map(option)).isInstanceOf(OptionMapperException.class);
     }
 
     @Test
     void badCaseInvalidOptionValue() {
-        Option option = new Option("-alg", "absidjas");
-        assertThatThrownBy(() -> {
-            optionMapper.map(option);
-        }).isInstanceOf(OptionMapperException.class);
+        Option option = new Option(validOptionName, invalidOptionValue);
+        assertThatThrownBy(() -> optionMapper.map(option)).isInstanceOf(OptionMapperException.class);
     }
 
     @Test
     void badCaseUpperCaseOptionName() {
-        Option option = new Option("-ALG", "linear");
-        assertThatThrownBy(() -> {
-            optionMapper.map(option);
-        }).isInstanceOf(OptionMapperException.class);
+        Option option = new Option(validOptionName.toUpperCase(), validOptionValue);
+        assertThatThrownBy(() -> optionMapper.map(option)).isInstanceOf(OptionMapperException.class);
     }
 
     @Test
     void badCaseUpperCaseOptionValue() {
-        Option option = new Option("-alg", "LINEAR");
-        assertThatThrownBy(() -> {
-            optionMapper.map(option);
-        }).isInstanceOf(OptionMapperException.class);
+        Option option = new Option(validOptionName, validOptionValue.toUpperCase());
+        assertThatThrownBy(() -> optionMapper.map(option)).isInstanceOf(OptionMapperException.class);
     }
 
     @Test
     void badCaseEmptyOption() {
         Option option = new Option("", "");
-        assertThatThrownBy(() -> {
-            optionMapper.map(option);
-        }).isInstanceOf(OptionMapperException.class);
+        assertThatThrownBy(() -> optionMapper.map(option)).isInstanceOf(OptionMapperException.class);
     }
 }

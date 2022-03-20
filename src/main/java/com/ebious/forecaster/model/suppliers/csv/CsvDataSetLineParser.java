@@ -3,8 +3,6 @@ package com.ebious.forecaster.model.suppliers.csv;
 import com.ebious.forecaster.model.domain.entity.Rate;
 import com.ebious.forecaster.model.exception.CsvParserException;
 import com.ebious.forecaster.model.utils.DateUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -15,8 +13,8 @@ public class CsvDataSetLineParser {
     private static final String LOCAL_DOUBLE_SEPARATOR = ",";
     private static final String ISO_DOUBLE_SEPARATOR = ".";
     private static final String EXTRA_QUOTES = "\"";
-    private final static int DATE_INDEX = 1;
-    private final static int CURS_INDEX = 2;
+    private static final int DATE_INDEX = 1;
+    private static final int CURS_INDEX = 2;
 
     public Rate parseLine(String line) {
         String[] tokens = line.split(CSV_LINE_SEPARATOR);

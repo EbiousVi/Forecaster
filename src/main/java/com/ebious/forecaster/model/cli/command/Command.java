@@ -1,4 +1,4 @@
-package com.ebious.forecaster.controller.mapping.commands;
+package com.ebious.forecaster.model.cli.command;
 
 public enum Command {
     RATE("rate "),

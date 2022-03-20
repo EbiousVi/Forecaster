@@ -3,7 +3,7 @@ package com.ebious.forecaster.model.cli.command.rate.mapper;
 import com.ebious.forecaster.model.cli.OptionMapper;
 import com.ebious.forecaster.model.cli.domain.Option;
 import com.ebious.forecaster.model.domain.enums.Output;
-import com.ebious.forecaster.model.cli.exception.OptionMapperException;
+import com.ebious.forecaster.model.exception.OptionMapperException;
 
 import java.util.Arrays;
 
@@ -12,7 +12,7 @@ public class OutputOptionMapper extends OptionMapper<Output> {
     private final static String OPTION_NAME = "-output";
     private static final String DESCRIPTION = "use " + OPTION_NAME + " option to set output\n" +
             "Option is not required, by default return text message\n" +
-            "Expected option value: " + OPTION_NAME + "\n" +
+            "Expected option name: " + OPTION_NAME + "\n" +
             "Excepted argument value: " + Arrays.toString(Output.values()).toLowerCase();
 
     @Override

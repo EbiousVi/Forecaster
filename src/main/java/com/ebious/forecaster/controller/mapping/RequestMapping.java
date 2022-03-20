@@ -3,7 +3,7 @@ package com.ebious.forecaster.controller.mapping;
 import com.ebious.forecaster.controller.controller.Controller;
 import com.ebious.forecaster.controller.controller.HelpController;
 import com.ebious.forecaster.controller.exception.RequestMappingException;
-import com.ebious.forecaster.controller.mapping.commands.Command;
+import com.ebious.forecaster.model.cli.command.Command;
 import com.ebious.forecaster.controller.controller.RateController;
 import com.ebious.forecaster.controller.gateway.Request;
 import com.ebious.forecaster.model.cli.domain.Info;
@@ -20,7 +20,7 @@ public final class RequestMapping {
         commands.put(Command.HELP, new HelpController());
     }
 
-    public Controller process(Request request) {
+    public Controller mapping(Request request) {
         for (Command command : commands.keySet()) {
             boolean matches = request.getBody().startsWith(command.value);
             if (matches) return commands.get(command);
